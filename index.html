@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Determinantes Socioeconómicos del Uso de Internet</title>
+    <meta name="description" content="Tablero estadístico sobre el uso de internet y sus determinantes">
+    
+    <!-- Tailwind CSS (CDN para despliegue estático rápido y limpio) -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#1e3a8a',
+                        secondary: '#0ea5e9',
+                        accent: '#38bdf8',
+                        light: '#f8fafc',
+                        dark: '#0f172a'
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="./assets/css/style.css">
+    
+    <!-- ECharts -->
+    <script src="https://cdn.jsdelivr.net/npm/echarts@5.5.0/dist/echarts.min.js"></script>
+</head>
+<body class="bg-gray-50 text-gray-800 font-sans antialiased flex flex-col min-h-screen">
+
+    <!-- Header -->
+    <header class="bg-primary text-white shadow-md sticky top-0 z-50">
+        <div class="container mx-auto px-4 py-3 flex justify-between items-center">
+            <div class="flex items-center space-x-4">
+                <svg class="w-8 h-8 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9"></path></svg>
+                <h1 class="text-xl font-bold tracking-tight">Brechas y Uso de Internet</h1>
+            </div>
+            <nav class="hidden md:flex space-x-6 text-sm font-medium">
+                <a href="#panorama" class="hover:text-accent transition-colors">Panorama General</a>
+                <a href="#brechas" class="hover:text-accent transition-colors">Brechas Sociales</a>
+                <a href="#perfil" class="hover:text-accent transition-colors">Perfil Demográfico</a>
+                <a href="#modelo" class="hover:text-accent transition-colors">Determinantes</a>
+                <a href="./docs/metodologia.md" class="hover:text-accent transition-colors" target="_blank">Metodología</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="flex-grow container mx-auto px-4 py-8 space-y-12">
+        
+        <!-- Loading State -->
+        <div id="loading" class="flex justify-center items-center h-64">
+            <div class="animate-spin rounded-full h-12 w-12 border-b-2 border-primary"></div>
+        </div>
+
+        <!-- Dashboard Content (hidden until loaded) -->
+        <div id="dashboard-content" class="hidden space-y-12">
+            
+            <!-- Presentación General -->
+            <section id="presentacion" class="bg-white rounded-xl shadow-sm p-8 border border-gray-100">
+                <h2 class="text-3xl font-bold text-dark mb-4">Determinantes Socioeconómicos del Uso de Internet</h2>
+                <p class="text-gray-600 text-lg leading-relaxed max-w-4xl">
+                    Este tablero estadístico interactivo analiza los principales factores sociodemográficos asociados al acceso y uso de internet en la población de 15 a 80 años. Basado en microdatos de encuestas de hogares, proporciona evidencia rigurosa sobre la brecha digital, patrones de uso y la probabilidad de conexión modelada multivariadamente.
+                </p>
+                <div class="mt-6 flex gap-4 text-sm">
+                    <span class="inline-flex items-center px-3 py-1 rounded-full bg-blue-50 text-blue-700 font-medium">
+                        <svg class="w-4 h-4 mr-1.5" fill="currentColor" viewBox="0 0 20 20"><path d="M9 2a1 1 0 000 2h2a1 1 0 100-2H9z"></path><path fill-rule="evenodd" d="M4 5a2 2 0 012-2 3 3 0 003 3h2a3 3 0 003-3 2 2 0 012 2v11a2 2 0 01-2 2H6a2 2 0 01-2-2V5zm3 4a1 1 0 000 2h.01a1 1 0 100-2H7zm3 0a1 1 0 000 2h3a1 1 0 100-2h-3zm-3 4a1 1 0 100 2h.01a1 1 0 100-2H7zm3 0a1 1 0 100 2h3a1 1 0 100-2h-3z" clip-rule="evenodd"></path></svg>
+                        Datos Ponderados
+                    </span>
+                    <span class="inline-flex items-center px-3 py-1 rounded-full bg-green-50 text-green-700 font-medium" id="badge-fecha">
+                        Actualizado: 2024
+                    </span>
+                </div>
+            </section>
+
+            <!-- Panorama General (KPIs) -->
+            <section id="panorama">
+                <h3 class="text-xl font-semibold text-gray-800 mb-6 flex items-center">
+                    <span class="w-1.5 h-6 bg-secondary mr-3 rounded-full"></span>
+                    Panorama General
+                </h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                    <!-- KPI 1 -->
+                    <div class="bg-white rounded-xl shadow-sm p-6 border border-gray-100 hover:shadow-md transition-shadow">
+                        <dt class="text-sm font-medium text-gray-500 uppercase tracking-wide">Tasa Global de Uso</dt>
+                        <dd class="mt-2 text-4xl font-extrabold text-primary" id="kpi-tasa">--%</dd>
+                        <p class="mt-1 text-sm text-gray-600">Población total 15-80 años</p>
+                    </div>
+                    <!-- KPI 2 -->
+                    <div class="bg-white rounded-xl shadow-sm p-6 border border-gray-100 hover:shadow-md transition-shadow">
+                        <dt class="text-sm font-medium text-gray-500 uppercase tracking-wide">Usuarios Estimados</dt>
+                        <dd class="mt-2 text-4xl font-extrabold text-secondary" id="kpi-usuarios">--</dd>
+                        <p class="mt-1 text-sm text-gray-600">Proyección nacional</p>
+                    </div>
+                    <!-- KPI 3 -->
+                    <div class="bg-white rounded-xl shadow-sm p-6 border border-gray-100 hover:shadow-md transition-shadow">
+                        <dt class="text-sm font-medium text-gray-500 uppercase tracking-wide">Brecha Urbana/Rural</dt>
+                        <dd class="mt-2 text-4xl font-extrabold text-amber-500" id="kpi-brecha-ur">-- pp</dd>
+                        <p class="mt-1 text-sm text-gray-600">Puntos porcentuales de diferencia</p>
+                    </div>
+                    <!-- KPI 4 -->
+                    <div class="bg-white rounded-xl shadow-sm p-6 border border-gray-100 hover:shadow-md transition-shadow">
+                        <dt class="text-sm font-medium text-gray-500 uppercase tracking-wide">Universo Poblacional</dt>
+                        <dd class="mt-2 text-4xl font-extrabold text-gray-700" id="kpi-poblacion">--</dd>
+                        <p class="mt-1 text-sm text-gray-600">Personas</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Brechas Estructurales -->
+            <section id="brechas">
+                <h3 class="text-xl font-semibold text-gray-800 mb-6 flex items-center">
+                    <span class="w-1.5 h-6 bg-accent mr-3 rounded-full"></span>
+                    Brechas Socioeconómicas y Territoriales
+                </h3>
+                
+                <!-- Controls -->
+                <div class="bg-white p-4 rounded-lg shadow-sm border border-gray-100 mb-6 w-full md:w-1/3">
+                    <label for="dim-selector" class="block text-sm font-medium text-gray-700 mb-2">Seleccionar Dimensión de Análisis</label>
+                    <select id="dim-selector" class="w-full rounded-md border-gray-300 shadow-sm focus:border-primary focus:ring-primary sm:text-sm p-2 border">
+                        <option value="nivel_edu">Nivel Educativo</option>
+                        <option value="quintil_ingreso">Quintiles de Ingreso</option>
+                        <option value="area">Área de Residencia</option>
+                        <option value="sexo">Sexo</option>
+                        <option value="dpto">Departamentos</option>
+                    </select>
+                </div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                    <div class="lg:col-span-2 bg-white rounded-xl shadow-sm p-4 border border-gray-100">
+                        <div id="chart-brechas" class="w-full h-80"></div>
+                    </div>
+                    <div class="bg-white rounded-xl shadow-sm p-6 border border-gray-100 flex flex-col justify-center">
+                        <h4 class="text-sm font-bold text-gray-500 uppercase tracking-wider mb-4 border-b pb-2">Distribución Descriptiva</h4>
+                        <div id="table-brechas" class="overflow-x-auto text-sm">
+                            <!-- Table injected via JS -->
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Perfil Demográfico -->
+            <section id="perfil" class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                <div class="bg-white rounded-xl shadow-sm p-6 border border-gray-100">
+                    <h3 class="text-lg font-semibold text-gray-800 mb-4 border-b pb-2">Uso de Internet por Ciclo de Vida</h3>
+                    <div id="chart-edades" class="w-full h-80 mt-4"></div>
+                </div>
+                <div class="bg-white rounded-xl shadow-sm p-6 border border-gray-100 flex flex-col justify-center items-center text-center">
+                    <h3 class="text-lg font-semibold text-gray-800 mb-8 border-b w-full pb-2">Edad Promedio Estructural</h3>
+                    <div class="flex justify-around w-full px-4 gap-8">
+                        <div>
+                            <div class="w-24 h-24 rounded-full bg-blue-50 flex items-center justify-center mx-auto mb-3 border-4 border-blue-100">
+                                <span class="text-3xl font-bold text-blue-600" id="edad-usr">--</span>
+                            </div>
+                            <span class="text-sm font-medium text-gray-600">Usuarios<br>de Internet</span>
+                        </div>
+                        <div>
+                            <div class="w-24 h-24 rounded-full bg-gray-50 flex items-center justify-center mx-auto mb-3 border-4 border-gray-100">
+                                <span class="text-3xl font-bold text-gray-500" id="edad-nousr">--</span>
+                            </div>
+                            <span class="text-sm font-medium text-gray-600">No Usuarios</span>
+                        </div>
+                    </div>
+                    <p class="mt-8 text-sm text-gray-500 max-w-sm">La edad evidencia una de las mayores barreras estructurantes para la adopción digital.</p>
+                </div>
+            </section>
+
+            <!-- Modelado Analítico -->
+            <section id="modelo" class="bg-white rounded-xl shadow-sm p-8 border border-gray-100">
+                <h3 class="text-xl font-semibold text-gray-800 mb-6 flex items-center">
+                    <span class="w-1.5 h-6 bg-indigo-600 mr-3 rounded-full"></span>
+                    Modelado de Determinantes Socioeconómicos (Regresión Logística)
+                </h3>
+                <p class="text-sm text-gray-600 mb-6 max-w-4xl">
+                    El modelo aisla el efecto 'puro' de cada variable sociodemográfica controlando por las demás. Los <strong class="text-gray-800">Odds Ratio (OR)</strong> mayores a 1 indican mayor probabilidad empírica de usar internet (efecto promotor), mientras que OR menores a 1 indican reducción de probabilidad (efecto barrera). Resultados estadísticamente significativos (p &lt; 0.05) determinan hallazgos válidos poblacionalmente.
+                </p>
+                
+                <div class="overflow-x-auto rounded-lg border border-gray-200">
+                    <table class="min-w-full divide-y divide-gray-200 text-sm" id="tabla-modelo">
+                        <thead class="bg-gray-50">
+                            <tr>
+                                <th scope="col" class="px-6 py-3 text-left font-semibold text-gray-500 tracking-wider">Factor / Variable</th>
+                                <th scope="col" class="px-6 py-3 text-right font-semibold text-gray-500 tracking-wider">Odds Ratio (Efecto)</th>
+                                <th scope="col" class="px-6 py-3 text-right font-semibold text-gray-500 tracking-wider">p-valor</th>
+                                <th scope="col" class="px-6 py-3 text-center font-semibold text-gray-500 tracking-wider">Significancia P.</th>
+                            </tr>
+                        </thead>
+                        <tbody class="bg-white divide-y divide-gray-200" id="cuerpo-tabla-modelo">
+                            <!-- JS Injected -->
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-dark text-gray-400 py-8 border-t border-gray-800 mt-12">
+        <div class="container mx-auto px-4 flex flex-col md:flex-row justify-between items-center text-sm">
+            <p>© 2024 Proyecto de Análisis de Datos para Políticas Públicas. </p>
+            <div class="flex space-x-6 mt-4 md:mt-0">
+                <a href="https://github.com/diegomezapy/maternidadybrechassalariales" target="_blank" class="hover:text-white transition-colors">Repositorio GitHub</a>
+                <a href="./docs/diccionario_datos.md" target="_blank" class="hover:text-white transition-colors">Diccionario de Datos</a>
+                <a href="./data_raw/encuesta_mock.csv" download class="hover:text-white transition-colors">Descargar Datos CSV</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script type="module" src="./assets/js/main.js"></script>
+</body>
+</html>
