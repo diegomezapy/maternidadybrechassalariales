@@ -1,0 +1,204 @@
+{
+  "metadata": {
+    "fuente": "Encuesta Mock Generada",
+    "universo": "Población de 15 a 80 años",
+    "fecha_actualizacion": "2026-03-14"
+  },
+  "kpis": {
+    "tasa_global": 62.9,
+    "total_usuarios": 533660,
+    "total_poblacion": 848612,
+    "brecha_urb_rur": 37.8
+  },
+  "brechas": {
+    "sexo": [
+      {
+        "categoria": "Mujer",
+        "tasa": 65.5,
+        "poblacion": 427031
+      },
+      {
+        "categoria": "Hombre",
+        "tasa": 60.2,
+        "poblacion": 421581
+      }
+    ],
+    "area": [
+      {
+        "categoria": "Urbana",
+        "tasa": 75.9,
+        "poblacion": 556701
+      },
+      {
+        "categoria": "Rural",
+        "tasa": 38.1,
+        "poblacion": 291911
+      }
+    ],
+    "nivel_edu": [
+      {
+        "categoria": "Básica",
+        "tasa": 29.6,
+        "poblacion": 259339
+      },
+      {
+        "categoria": "Media",
+        "tasa": 70.0,
+        "poblacion": 395770
+      },
+      {
+        "categoria": "Superior",
+        "tasa": 93.0,
+        "poblacion": 193503
+      }
+    ],
+    "quintil_ingreso": [
+      {
+        "categoria": "Q1",
+        "tasa": 29.7,
+        "poblacion": 147280
+      },
+      {
+        "categoria": "Q2",
+        "tasa": 46.7,
+        "poblacion": 173435
+      },
+      {
+        "categoria": "Q3",
+        "tasa": 64.4,
+        "poblacion": 191743
+      },
+      {
+        "categoria": "Q4",
+        "tasa": 80.1,
+        "poblacion": 175264
+      },
+      {
+        "categoria": "Q5",
+        "tasa": 90.1,
+        "poblacion": 160890
+      }
+    ],
+    "grupo_edad": [
+      {
+        "categoria": "15-24",
+        "tasa": 79.7,
+        "poblacion": 236903
+      },
+      {
+        "categoria": "25-34",
+        "tasa": 66.7,
+        "poblacion": 176099
+      },
+      {
+        "categoria": "35-44",
+        "tasa": 60.9,
+        "poblacion": 186292
+      },
+      {
+        "categoria": "45-54",
+        "tasa": 51.6,
+        "poblacion": 132640
+      },
+      {
+        "categoria": "55-64",
+        "tasa": 44.7,
+        "poblacion": 75376
+      },
+      {
+        "categoria": "65+",
+        "tasa": 28.7,
+        "poblacion": 41302
+      }
+    ],
+    "dpto": [
+      {
+        "categoria": "Asunción",
+        "tasa": 74.8,
+        "poblacion": 169473
+      },
+      {
+        "categoria": "Alto Paraná",
+        "tasa": 74.5,
+        "poblacion": 91270
+      },
+      {
+        "categoria": "Central",
+        "tasa": 73.7,
+        "poblacion": 233138
+      },
+      {
+        "categoria": "Itapúa",
+        "tasa": 71.7,
+        "poblacion": 61960
+      },
+      {
+        "categoria": "Caazapá",
+        "tasa": 43.8,
+        "poblacion": 35228
+      },
+      {
+        "categoria": "Caaguazú",
+        "tasa": 43.5,
+        "poblacion": 99443
+      },
+      {
+        "categoria": "Concepción",
+        "tasa": 41.8,
+        "poblacion": 65155
+      },
+      {
+        "categoria": "San Pedro",
+        "tasa": 39.6,
+        "poblacion": 92945
+      }
+    ]
+  },
+  "perfil_demografico": {
+    "edad_promedio": {
+      "usuarios": 32.5,
+      "no_usuarios": 42.0
+    }
+  },
+  "modelo": {
+    "status": "success",
+    "factores": [
+      {
+        "variable": "Educación Superior (vs Básica)",
+        "odds_ratio": 12.1,
+        "p_valor": 0.0,
+        "significativo": true
+      },
+      {
+        "variable": "Residir en Área Urbana (vs Rural)",
+        "odds_ratio": 4.3,
+        "p_valor": 0.0,
+        "significativo": true
+      },
+      {
+        "variable": "Educación Media (vs Básica)",
+        "odds_ratio": 3.53,
+        "p_valor": 0.0,
+        "significativo": true
+      },
+      {
+        "variable": "Aumento de 1 Quintil de Ingreso",
+        "odds_ratio": 1.76,
+        "p_valor": 0.0,
+        "significativo": true
+      },
+      {
+        "variable": "Ser Mujer (vs Hombre)",
+        "odds_ratio": 1.41,
+        "p_valor": 0.0,
+        "significativo": true
+      },
+      {
+        "variable": "Edad (por cada año adicional)",
+        "odds_ratio": 0.94,
+        "p_valor": 0.0,
+        "significativo": true
+      }
+    ]
+  }
+}

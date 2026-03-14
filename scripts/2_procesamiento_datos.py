@@ -13,13 +13,13 @@ def weighted_mean(df, value_col, weight_col):
     except:
         return 0
 
-def procesar_datos(input_path="../data_raw/encuesta_mock.csv", output_path="../assets/data/dashboard_data.json"):
+def procesar_datos(input_path="data_raw/encuesta_mock.csv", output_path="assets/data/dashboard_data.json"):
     print("Leyendo datos crudos...")
     if not os.path.exists(input_path):
         print(f"Error: No se encontro el archivo {input_path}")
         return
         
-    df = pd.read_csv(input_path)
+    df = pd.read_csv(input_path, sep=";")
     
     # 1. Indicadores Generales (Global)
     total_poblacion = float(df['fex'].sum())

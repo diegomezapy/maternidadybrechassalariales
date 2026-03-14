@@ -86,8 +86,8 @@ export function initCharts(data) {
                     type: 'bar',
                     itemStyle: {
                         color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
-                            { offset: 0, color: '#38bdf8' },
-                            { offset: 1, color: '#1e3a8a' }
+                            { offset: 0, color: '#C78B58' },
+                            { offset: 1, color: '#5E412F' }
                         ]),
                         borderRadius: [4, 4, 0, 0]
                     },
@@ -145,7 +145,7 @@ export function initCharts(data) {
                     formatter: '{c}%'
                 },
                 itemStyle: {
-                    color: '#0ea5e9',
+                    color: '#8B5A2B',
                     borderRadius: [0, 4, 4, 0]
                 }
             }

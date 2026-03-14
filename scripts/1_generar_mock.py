@@ -2,7 +2,7 @@ import pandas as pd
 import numpy as np
 import os
 
-def generar_datos_mock(n=10000, output_path="../data_raw/encuesta_mock.csv"):
+def generar_datos_mock(n=10000, output_path="data_raw/encuesta_mock.csv"):
     """
     Genera un dataset de ejemplo tipo Encuesta de Hogares para el tablero de internet.
     """
@@ -92,7 +92,7 @@ def generar_datos_mock(n=10000, output_path="../data_raw/encuesta_mock.csv"):
 
     # Guardar CSV
     os.makedirs(os.path.dirname(output_path), exist_ok=True)
-    df.to_csv(output_path, index=False, encoding="utf-8")
+    df.to_csv(output_path, index=False, encoding="utf-8", sep=";")
     print(f"Dataset generado exitosamente en: {output_path}")
     print(df.head())
 
